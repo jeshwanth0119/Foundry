@@ -14,25 +14,23 @@ contract BooksTest is Test {
     }
 
     function test_get_book() public {
-        // Fetch book details
-        (string memory title, string memory author, uint256 pages) = (
-            books.book().title,
-            books.book().author,
-            books.book().pages
-        );
+        // Fetch book details using the get_book function
+        Books.Book memory book = books.get_book();
 
         // Assertions
-        assertEq(title, "Programming Foundry");
-        assertEq(author, "JESHWANTH");
-        assertEq(pages, 100);
+        assertEq(book.title, "Programming Foundry");
+        assertEq(book.author, "JESHWANTH");
+        assertEq(book.pages, 100);
     }
 
     function test_updatePages() public {
         // Update pages
         books.update_pages(150);
 
+        // Fetch updated book details
+        Books.Book memory book = books.get_book();
+
         // Check if the pages were updated
-        uint256 updatedPages = books.book().pages;
-        assertEq(updatedPages, 150);
+        assertEq(book.pages, 150);
     }
 }
